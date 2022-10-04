@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Quiz_Practica1</string>
+    <string name="quiz_game">Quiz Game</string>
+    <string name="button">Button</string>
+    <string name="respuesta3">Respuesta3</string>
+    <string name="respuesta1">Respuesta1</string>
+    <string name="respuesta2">Respuesta2</string>
+    <string name="respuesta4">Respuesta4</string>
+    <string name="pregunta">Pregunta</string>
 </resources>
