@@ -3,38 +3,165 @@ package com.example.quiz_practica1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button boton;
+    TextView preguntaTextView;
     int puntosPartida = 0;
     ArrayList<Pregunta> preguntas = new ArrayList<>();
-    ArrayList<Pregunta> respuestas = new ArrayList<>();
+    Pregunta preguntaCorrecta;
+    int numBotonCorrecto;
+    ArrayList<Pregunta> restoPreguntas = new ArrayList<>();
+    int numpreguntas = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        anadirPreguntas();
-        anadirRespuestas();
-        Button botonCorrecto = findViewById(R.id.Respuesta1Button);
-        colocarBotonCorrecto(botonCorrecto);
-        //Cambiar texto del boton
-        //boton = findViewById(R.id.Respuesta1Button);
-        //boton.setText("Respuesta 1");
-        boton = findViewById(R.id.Respuesta2Button);
-        boton.setText("Respuesta 2");
-        boton = findViewById(R.id.Respuesta3Button);
-        boton.setText("Respuesta 3");
-        boton = findViewById(R.id.Respuesta4Button);
-        boton.setText("Respuesta 4");
 
+        Button respuesta1Button = findViewById(R.id.Respuesta1Button);
+        Button respuesta2Button = findViewById(R.id.Respuesta2Button);
+        Button respuesta3Button = findViewById(R.id.Respuesta3Button);
+        Button respuesta4Button = findViewById(R.id.Respuesta4Button);
+
+        //Rellena el ArrayList con las preguntas
+        anadirPreguntasYrespuestas();
+
+        //Texto donde se mostrará la pregunta
+        preguntaTextView = findViewById(R.id.PreguntaText);
+
+        //stop while execution until button is pressed
+        //AtomicBoolean buttonPressed = new AtomicBoolean(false);
+
+        while (numpreguntas <  10) {
+
+            restoPreguntas = preguntas;
+            //Seleccina la pregunta
+            int numeroPregunta = seleccionarPregunta(preguntaTextView);
+            Log.i("Pregunta",restoPreguntas.get(numeroPregunta).getPregunta());
+
+            //Guarda la pregunta seleccionada en la variable preguntaCorrecta
+            preguntaCorrecta = restoPreguntas.get(numeroPregunta);
+            //Borra la pregunta seleccionada del ArrayList (para que no se repita)
+            restoPreguntas.remove(numeroPregunta);
+
+            //Colocar Boton Correcto
+            int posicionBotonCorrecto = (int) (Math.random() * 4);
+            switch (posicionBotonCorrecto) {
+                case 0:
+                    respuesta1Button.setText(preguntaCorrecta.getRespuesta());
+                    numBotonCorrecto = 1;
+                    Log.i("Boton Correcto", "Boton 1");
+                    break;
+                case 1:
+                    respuesta2Button.setText(preguntaCorrecta.getRespuesta());
+                    numBotonCorrecto = 2;
+                    Log.i("Boton Correcto", "Boton 2");
+                    break;
+                case 2:
+                    respuesta3Button.setText(preguntaCorrecta.getRespuesta());
+                    numBotonCorrecto = 3;
+                    Log.i("Boton Correcto", "Boton 3");
+                    break;
+                case 3:
+                    respuesta4Button.setText(preguntaCorrecta.getRespuesta());
+                    numBotonCorrecto = 4;
+                    Log.i("Boton Correcto", "Boton 4");
+                    break;
+            }
+            //Colocar Botones Incorrectos
+            int respuestasRellenas = 1;
+            int [] respuestasIncorrectas = new int[3];
+            for(int i=0; i<2; i++){
+                //Numero aleatorio de 0 a Numero de Preguntas
+                respuestasIncorrectas[i] = (int) (Math.random() * preguntas.size());
+            }
+
+            switch(numBotonCorrecto){
+
+                case 1:
+                    respuesta2Button.setText(preguntas.get(respuestasIncorrectas[0]).getRespuesta());
+                    respuesta3Button.setText(preguntas.get(respuestasIncorrectas[1]).getRespuesta());
+                    respuesta4Button.setText(preguntas.get(respuestasIncorrectas[2]).getRespuesta());
+                    break;
+                case 2:
+                    respuesta1Button.setText(preguntas.get(respuestasIncorrectas[0]).getRespuesta());
+                    respuesta3Button.setText(preguntas.get(respuestasIncorrectas[1]).getRespuesta());
+                    respuesta4Button.setText(preguntas.get(respuestasIncorrectas[2]).getRespuesta());
+                    break;
+                case 3:
+                    respuesta1Button.setText(preguntas.get(respuestasIncorrectas[0]).getRespuesta());
+                    respuesta2Button.setText(preguntas.get(respuestasIncorrectas[1]).getRespuesta());
+                    respuesta4Button.setText(preguntas.get(respuestasIncorrectas[2]).getRespuesta());
+                    break;
+                case 4:
+                    respuesta1Button.setText(preguntas.get(respuestasIncorrectas[0]).getRespuesta());
+                    respuesta2Button.setText(preguntas.get(respuestasIncorrectas[1]).getRespuesta());
+                    respuesta3Button.setText(preguntas.get(respuestasIncorrectas[2]).getRespuesta());
+                    break;
+            }
+
+            //Boton pulsado1
+            respuesta1Button.setOnClickListener(v -> {
+                if (numBotonCorrecto == 1) {
+                    puntosPartida+=3;
+                }
+                else{
+                    puntosPartida-=2;
+                }
+                Log.i("Boton1", "Boton1 pulsado");
+
+            });
+            //Boton pulsado2
+            respuesta2Button.setOnClickListener(v -> {
+                if (numBotonCorrecto == 2) {
+                    puntosPartida+=3;
+                }
+                else{
+                    puntosPartida-=2;
+                }
+                Log.i("Boton2", "Boton2 pulsado");
+                //buttonPressed.set(true);
+
+            });
+            //Boton pulsado3
+            respuesta3Button.setOnClickListener(v -> {
+                if (numBotonCorrecto == 3) {
+                    puntosPartida+=3;
+                }
+                else{
+                    puntosPartida-=2;
+                }
+                Log.i("Boton3", "Boton3 pulsado");
+
+            });
+            //Boton pulsado4
+            respuesta4Button.setOnClickListener(v -> {
+                if (numBotonCorrecto == 4) {
+                    puntosPartida+=3;
+                }
+                else{
+                    puntosPartida-=2;
+                }
+                Log.i("Boton4", "Boton4 pulsado");
+
+            });
+            numpreguntas++;
+            /*if(numpreguntas == 10){
+                Intent intent = new Intent(this, Resultado.class);
+                intent.putExtra("puntos", puntosPartida);
+                startActivity(intent);
+            }*/
+        }
     }
 
-    public void anadirPreguntas(){
+    public void anadirPreguntasYrespuestas(){
         Pregunta pregunta = new Pregunta("¿Cual es la capital de España?", "Madrid");
         preguntas.add(pregunta);
         pregunta = new Pregunta("¿Cual es la capital de Francia?", "Paris");
@@ -55,41 +182,16 @@ public class MainActivity extends AppCompatActivity {
         preguntas.add(pregunta);
         pregunta = new Pregunta("¿Cual es la capital de Japon?", "Tokio");
         preguntas.add(pregunta);
-        pregunta = new Pregunta("¿Cual es la pelicula mas taquillera de la historia?", "Avatar");
+        //pregunta = new Pregunta("¿Cual es la pelicula mas taquillera de la historia?", "Avatar");
     }
 
-    public void anadirRespuestas(){
-        ArrayList<Pregunta> respuestas = new ArrayList<>();
-        //Pregunta random
-        int random = (int) (Math.random() * preguntas.size());
-        //Respuesta correcta
-        respuestas.add(preguntas.get(random));
-        //Respuestas incorrectas 3
-        for (int i = 0; i < 2; i++) {
-            random = (int) (Math.random() * preguntas.size());
-            respuestas.add(preguntas.get(random));
-        }
-        this.respuestas = respuestas;
-
+    public int seleccionarPregunta(TextView pregunta){
+        //Numero random de 0 a 10
+        int posicionPregunta = (int) (Math.random() * restoPreguntas.size());
+        //Colocar pregunta en el textview
+        pregunta.setText(restoPreguntas.get(posicionPregunta).getPregunta());
+        return posicionPregunta;
     }
 
-    public void colocarBotonCorrecto(Button boton){
-        //Numero random de 0 a 3
-        int posicionBotonCorrecto = (int) (Math.random() * 4);
-        switch (posicionBotonCorrecto){
-            case 0:
-                boton.setText(preguntas.get(0).getPregunta());
-                break;
-            case 1:
-                boton.setText(preguntas.get(0).getPregunta());
-                break;
-            case 2:
-                boton.setText(preguntas.get(0).getPregunta());
-                break;
-            case 3:
-                boton.setText(preguntas.get(0).getPregunta());
-                break;
-        }
-    }
 
 }
