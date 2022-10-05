@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,9 +25,10 @@ public class MainActivity extends AppCompatActivity {
     int puntosPartida = 0;
     ArrayList<Pregunta> preguntas = new ArrayList<>();
     ArrayList<Pregunta> restoPreguntas = new ArrayList<>();
+    ArrayList<Integer> respuestasIncorrectas = new ArrayList<>();
     Pregunta preguntaCorrecta;
     int numBotonCorrecto;
-    int numpreguntas = 1;
+    int numpreguntas = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         respuesta4Button = findViewById(R.id.Respuesta4Button);
 
         //Rellena el ArrayList con las preguntas
-        anadirPreguntasYrespuestas();
+        anadirPreguntasYRespuestas();
 
         restoPreguntas = (ArrayList<Pregunta>) preguntas.clone();
 
@@ -134,32 +134,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        numpreguntas++;
 
-    }
-
-    public void anadirPreguntasYrespuestas(){
-        pregunta = new Pregunta("¿Cual es la capital de España?", "Madrid");
-        preguntas.add(pregunta);
-        pregunta = new Pregunta("¿Cual es la capital de Francia?", "Paris");
-        preguntas.add(pregunta);
-        pregunta = new Pregunta("¿Cual es la capital de Italia?", "Roma");
-        preguntas.add(pregunta);
-        pregunta = new Pregunta("¿Cual es la capital de Portugal?", "Lisboa");
-        preguntas.add(pregunta);
-        pregunta = new Pregunta("¿Cual es la capital de Alemania?", "Berlin");
-        preguntas.add(pregunta);
-        pregunta = new Pregunta("¿Cual es la capital de Inglaterra?", "Londres");
-        preguntas.add(pregunta);
-        pregunta = new Pregunta("¿Cual es la capital de Grecia?", "Atenas");
-        preguntas.add(pregunta);
-        pregunta = new Pregunta("¿Cual es la capital de Corea?", "Seul");
-        preguntas.add(pregunta);
-        pregunta = new Pregunta("¿Cual es la capital de China?", "Pekin");
-        preguntas.add(pregunta);
-        pregunta = new Pregunta("¿Cual es la capital de Japon?", "Tokio");
-        preguntas.add(pregunta);
-        //pregunta = new Pregunta("¿Cual es la pelicula mas taquillera de la historia?", "Avatar");
     }
 
     public int seleccionarPregunta(TextView pregunta){
@@ -206,57 +181,118 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        //Array de 0 a numero de restoPreguntas
-        int [] respuestasIncorrectas = new int[preguntas.size()];
-        for(int i=0; i<preguntas.size(); i++){
-            if(i != numeroPregunta){
-                respuestasIncorrectas[i] = i;
-            }
-            Log.i("RespuestasIncorrectas"+i, String.valueOf(respuestasIncorrectas[i]));
+        //Array de 0 a numero de preguntas
+        for (int i = 0; i < preguntas.size(); i++) {
+            respuestasIncorrectas.add(i);
         }
-        Collections.shuffle(Arrays.asList(respuestasIncorrectas));
-        for(int i=0; i<preguntas.size(); i++) {
-            Log.i("RespuestasIncMez", String.valueOf(respuestasIncorrectas[i]));
-        }
+        //Eliminar numeropregunta de numeros
+        respuestasIncorrectas.remove(numeroPregunta);
 
+        //Barajar el array
+        Collections.shuffle(respuestasIncorrectas);
 
         switch(numBotonCorrecto){
 
             case 1:
-                respuesta2Button.setText(preguntas.get(respuestasIncorrectas[0]).getRespuesta());
-                respuesta3Button.setText(preguntas.get(respuestasIncorrectas[1]).getRespuesta());
-                respuesta4Button.setText(preguntas.get(respuestasIncorrectas[2]).getRespuesta());
+                respuesta2Button.setText(preguntas.get(respuestasIncorrectas.get(0)).getRespuesta());
+                respuesta3Button.setText(preguntas.get(respuestasIncorrectas.get(1)).getRespuesta());
+                respuesta4Button.setText(preguntas.get(respuestasIncorrectas.get(2)).getRespuesta());
                 break;
             case 2:
-                respuesta1Button.setText(preguntas.get(respuestasIncorrectas[0]).getRespuesta());
-                respuesta3Button.setText(preguntas.get(respuestasIncorrectas[1]).getRespuesta());
-                respuesta4Button.setText(preguntas.get(respuestasIncorrectas[2]).getRespuesta());
+                respuesta1Button.setText(preguntas.get(respuestasIncorrectas.get(0)).getRespuesta());
+                respuesta3Button.setText(preguntas.get(respuestasIncorrectas.get(1)).getRespuesta());
+                respuesta4Button.setText(preguntas.get(respuestasIncorrectas.get(2)).getRespuesta());
                 break;
             case 3:
-                respuesta1Button.setText(preguntas.get(respuestasIncorrectas[0]).getRespuesta());
-                respuesta2Button.setText(preguntas.get(respuestasIncorrectas[1]).getRespuesta());
-                respuesta4Button.setText(preguntas.get(respuestasIncorrectas[2]).getRespuesta());
+                respuesta1Button.setText(preguntas.get(respuestasIncorrectas.get(0)).getRespuesta());
+                respuesta2Button.setText(preguntas.get(respuestasIncorrectas.get(1)).getRespuesta());
+                respuesta4Button.setText(preguntas.get(respuestasIncorrectas.get(2)).getRespuesta());
                 break;
             case 4:
-                respuesta1Button.setText(preguntas.get(respuestasIncorrectas[0]).getRespuesta());
-                respuesta2Button.setText(preguntas.get(respuestasIncorrectas[1]).getRespuesta());
-                respuesta3Button.setText(preguntas.get(respuestasIncorrectas[2]).getRespuesta());
+                respuesta1Button.setText(preguntas.get(respuestasIncorrectas.get(0)).getRespuesta());
+                respuesta2Button.setText(preguntas.get(respuestasIncorrectas.get(1)).getRespuesta());
+                respuesta3Button.setText(preguntas.get(respuestasIncorrectas.get(2)).getRespuesta());
                 break;
         }
+        numpreguntas--;
     }
 
     public boolean seguirJugando(){
-        if(restoPreguntas.size() == 0){
+        if(numpreguntas == 0){
             Log.i("Juego", "Terminado");
             return false;
         }else{
-            //Log.i("Preguntas Restantes", String.valueOf(restoPreguntas.size()));
+            Log.i("Preguntas Restantes", String.valueOf(numpreguntas));
             //Log.i("PreguntaOriginales", String.valueOf(preguntas.size()));
-            for(int i=0; i<restoPreguntas.size(); i++){
+            /*for(int i=0; i<restoPreguntas.size(); i++){
                 Log.i("PreguntaRestante"+i, restoPreguntas.get(i).getPregunta());
-            }
+            }*/
             return true;
         }
+    }
+
+    public void anadirPreguntasYRespuestas(){
+        pregunta = new Pregunta("¿Cual es la capital de España?", "Madrid");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Francia?", "Paris");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Italia?", "Roma");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Portugal?", "Lisboa");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Alemania?", "Berlin");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Inglaterra?", "Londres");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Grecia?", "Atenas");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Corea?", "Seul");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de China?", "Pekin");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Japon?", "Tokio");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Rusia?", "Moscu");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Egipto?", "El Cairo");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Marruecos?", "Rabat");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Argentina?", "Buenos Aires");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Brasil?", "Brasilia");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Colombia?", "Bogota");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Mexico?", "Mexico");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Venezuela?", "Caracas");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Australia?", "Canberra");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Nueva Zelanda?", "Wellington");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Canada?", "Ottawa");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Estados Unidos?", "Washington");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Cuba?", "La Habana");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Polonia?", "Varsovia");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Suecia?", "Estocolmo");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Noruega?", "Oslo");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Finlandia?", "Helsinki");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Dinamarca?", "Copenhague");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Islandia?", "Reikiavik");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Irlanda?", "Dublin");
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Cual es la capital de Ucrania?", "Kiev");
     }
 
 
