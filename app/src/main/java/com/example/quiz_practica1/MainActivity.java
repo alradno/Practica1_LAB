@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     Button respuesta2Button;
     Button respuesta3Button;
     Button respuesta4Button;
+
+    Pregunta pregunta;
 
     TextView preguntaTextView;
     int puntosPartida = 0;
@@ -44,8 +48,13 @@ public class MainActivity extends AppCompatActivity {
         //Texto donde se mostrará la pregunta
         preguntaTextView = findViewById(R.id.PreguntaText);
 
-        //stop while execution until button is pressed
-        //AtomicBoolean buttonPressed = new AtomicBoolean(false);
+        for(int i=0; i<restoPreguntas.size(); i++){
+            Log.i("PreguntaRestante"+i, restoPreguntas.get(i).getPregunta());
+        }
+
+        for(int i=0; i<preguntas.size(); i++){
+            Log.i("PreguntaOriginal"+i, preguntas.get(i).getPregunta());
+        }
 
         jugar();
 
@@ -126,16 +135,11 @@ public class MainActivity extends AppCompatActivity {
 
         });
         numpreguntas++;
-        /*if(numpreguntas == 10){
-            Intent intent = new Intent(this, Resultado.class);
-            intent.putExtra("puntos", puntosPartida);
-            startActivity(intent);
-        }*/
 
     }
 
     public void anadirPreguntasYrespuestas(){
-        Pregunta pregunta = new Pregunta("¿Cual es la capital de España?", "Madrid");
+        pregunta = new Pregunta("¿Cual es la capital de España?", "Madrid");
         preguntas.add(pregunta);
         pregunta = new Pregunta("¿Cual es la capital de Francia?", "Paris");
         preguntas.add(pregunta);
@@ -201,13 +205,20 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Boton Correcto", "Boton 4");
                 break;
         }
-        //Colocar Botones Incorrectos
-        int respuestasRellenas = 1;
-        int [] respuestasIncorrectas = new int[3];
-        for(int i=0; i<2; i++){
-            //Numero aleatorio de 0 a Numero de Preguntas
-            respuestasIncorrectas[i] = (int) (Math.random() * preguntas.size());
+
+        //Array de 0 a numero de restoPreguntas
+        int [] respuestasIncorrectas = new int[preguntas.size()];
+        for(int i=0; i<preguntas.size(); i++){
+            if(i != numeroPregunta){
+                respuestasIncorrectas[i] = i;
+            }
+            Log.i("RespuestasIncorrectas"+i, String.valueOf(respuestasIncorrectas[i]));
         }
+        Collections.shuffle(Arrays.asList(respuestasIncorrectas));
+        for(int i=0; i<preguntas.size(); i++) {
+            Log.i("RespuestasIncMez", String.valueOf(respuestasIncorrectas[i]));
+        }
+
 
         switch(numBotonCorrecto){
 
@@ -239,15 +250,10 @@ public class MainActivity extends AppCompatActivity {
             Log.i("Juego", "Terminado");
             return false;
         }else{
-            Log.i("Preguntas Restantes", String.valueOf(restoPreguntas.size()));
-            Log.i("PreguntaOriginales", String.valueOf(preguntas.size()));
-
+            //Log.i("Preguntas Restantes", String.valueOf(restoPreguntas.size()));
+            //Log.i("PreguntaOriginales", String.valueOf(preguntas.size()));
             for(int i=0; i<restoPreguntas.size(); i++){
-                Log.i("PreguntasRestantes"+i, restoPreguntas.get(i).getPregunta());
-            }
-
-            for(int i=0; i<preguntas.size(); i++){
-                Log.i("PreguntaOriginal"+i, preguntas.get(i).getPregunta());
+                Log.i("PreguntaRestante"+i, restoPreguntas.get(i).getPregunta());
             }
             return true;
         }

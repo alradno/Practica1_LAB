@@ -7,17 +7,6 @@
     tools:context=".Resultado">
 
     <TextView
-        android:id="@+id/PuntosText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="252dp"
-        android:text="@string/puntos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.173"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/numPuntosText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
