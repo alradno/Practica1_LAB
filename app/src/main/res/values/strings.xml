@@ -7,4 +7,6 @@
     <string name="respuesta2">Respuesta2</string>
     <string name="respuesta4">Respuesta4</string>
     <string name="pregunta">Pregunta</string>
+    <string name="puntos">Puntos:</string>
+    <string name="_0">0</string>
 </resources>
