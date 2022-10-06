@@ -72,4 +72,17 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Respuesta1Button" />
+
+    <Button
+        android:id="@+id/salirButtonMain"
+        android:layout_width="75dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/salir"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
