@@ -132,6 +132,12 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        //Boton Salir
+        Button salirButton = findViewById(R.id.salirButtonMain);
+        salirButton.setOnClickListener(v -> {
+            finishAffinity();
+        });
+
     }
 
     public int seleccionarPregunta(TextView pregunta){
