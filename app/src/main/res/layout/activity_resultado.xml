@@ -22,19 +22,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginTop="266dp"
-        android:text="Volver"
+        android:text="@string/volver"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.697" />
 
     <Button
-        android:id="@+id/salirButton"
+        android:id="@+id/salirPuntuacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="266dp"
         android:layout_marginEnd="80dp"
-        android:text="Salir"
+        android:text="@string/salirPuntuacion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

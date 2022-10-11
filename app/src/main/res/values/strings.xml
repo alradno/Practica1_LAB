@@ -10,4 +10,15 @@
     <string name="puntos">Puntos:</string>
     <string name="_0">0</string>
     <string name="salir">Salir</string>
+    <string name="volver">Volver</string>
+    <string name="salirPuntuacion">Salir</string>
+    <string name="preguntaTextRadio">Pregunta</string>
+    <string name="respuesta1Radio">Respuesta1</string>
+    <string name="respuesta2radio">Respuesta2</string>
+    <string name="respuesta3radio">Respuesta3</string>
+    <string name="respuesta4radio">Respuesta4</string>
+    <string name="salirButtonTextView">Salir</string>
+    <string name="preguntaTextView">Pregunta</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

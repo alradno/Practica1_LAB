@@ -40,7 +40,7 @@ public class Resultado extends AppCompatActivity {
         });
 
         //Boton salir
-        Button salir = findViewById(R.id.salirButton);
+        Button salir = findViewById(R.id.salirPuntuacion);
         salir.setOnClickListener(v -> {
             //Cerrar la app
             finishAffinity();

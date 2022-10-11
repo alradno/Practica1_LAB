@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TextPreguntasFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/r1FragmentButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="200dp"
+        android:text="Respuesta1" />
+
+    <Button
+        android:id="@+id/r2FragmentButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="300dp"
+        android:text="Respuesta2" />
+
+    <Button
+        android:id="@+id/r3FragmentButton"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="400dp"
+        android:text="Respuesta3" />
+
+    <Button
+        android:id="@+id/r4FragmentButton"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="500dp"
+        android:text="Respuesta4" />
+
+</FrameLayout>
