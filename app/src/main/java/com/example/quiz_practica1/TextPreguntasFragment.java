@@ -3,10 +3,13 @@ package com.example.quiz_practica1;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,5 +63,23 @@ public class TextPreguntasFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_text_preguntas, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        final NavController navController = Navigation.findNavController(view);
+        //Boton Atras
+        Button atras = view.findViewById(R.id.AtrasButton1);
+        atras.setOnClickListener( v ->  {
+            navController.popBackStack();
+        });
+        Button respuesta1 = view.findViewById(R.id.r1FragmentButton);
+        Button respuesta2 = view.findViewById(R.id.r2FragmentButton);
+        Button respuesta3 = view.findViewById(R.id.r3FragmentButton);
+        Button respuesta4 = view.findViewById(R.id.r4FragmentButton);
+        respuesta1.setOnClickListener( v ->  {
+            //navController.navigate(R.id.action_textPreguntasFragment_to_textPreguntasFragment2);
+        });
     }
 }

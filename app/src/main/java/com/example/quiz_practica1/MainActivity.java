@@ -11,15 +11,15 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
 
-    static int numpreguntas;
-    static int puntosPartida;
+    //static int numpreguntas;
+    //static int puntosPartida;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Jugar partida = new Jugar();
+        /*Jugar partida = new Jugar();
 
         ArrayList<Pregunta> restoPreguntas = partida.anadirPreguntasYRespuestas();
 
@@ -60,13 +60,8 @@ public class MainActivity extends AppCompatActivity {
         //Cada activity que devuelva resultado de correcto o fallo
         //La puntuacion se va calculando en el main activity
 
-
+    */
     }
-    /*@Override
-    protected void onSavedInstanceState(Bundle outState) {
-        super.onSavedInstanceState(outState);
-        outState.putInt("puntosPartida", puntosPartida);
-    }*/
 
 
 }
