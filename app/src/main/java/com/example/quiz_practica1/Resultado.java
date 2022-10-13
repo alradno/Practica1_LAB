@@ -19,7 +19,7 @@ public class Resultado extends AppCompatActivity {
         setContentView(R.layout.activity_resultado);
 
         //Get puntosPartida from MainActivity
-        puntosPartida = getIntent().getIntExtra("puntos", 0);
+        puntosPartida = getIntent().getIntExtra("puntosPartida", 0);
 
         if(puntosPartida < 0){
             puntosPartida = 0;

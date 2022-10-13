@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".InicioFragment">
 
+
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
@@ -17,9 +18,9 @@
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="400dp"
-        android:text="Jugar"
         android:onClick="jugarButtonOnClick"
-        />
+        android:text="@string/jugarButton" />
+
 
 
 

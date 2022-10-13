@@ -10,41 +10,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <Button
-        android:id="@+id/r1FragmentButton"
+        android:id="@+id/respuestaText1"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="200dp"
-        android:text="Respuesta1" />
+        android:text="@string/respuesta1Text" />
 
     <Button
-        android:id="@+id/r2FragmentButton"
+        android:id="@+id/respuestaText2"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="300dp"
-        android:text="Respuesta2" />
+        android:text="@string/respuesta2Text" />
 
     <Button
-        android:id="@+id/r3FragmentButton"
+        android:id="@+id/respuestaText3"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="400dp"
-        android:text="Respuesta3" />
+        android:text="@string/respuesta3Text" />
 
     <Button
-        android:id="@+id/r4FragmentButton"
+        android:id="@+id/respuestaText4"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="500dp"
-        android:text="Respuesta4" />
+        android:text="@string/respuesta4Text" />
 
     <Button
         android:id="@+id/AtrasButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Atras" />
+        android:text="@string/atrasTextFragment" />
+
+    <TextView
+        android:id="@+id/PreguntaTextFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="100dp"
+        android:text="@string/preguntaText" />
 
 </FrameLayout>

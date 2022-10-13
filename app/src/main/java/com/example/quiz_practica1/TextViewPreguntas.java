@@ -27,7 +27,7 @@ public class TextViewPreguntas extends AppCompatActivity {
     ArrayList<Pregunta> respuestasIncorrectas = new ArrayList<>();
     Pregunta preguntaCorrecta;
     int numBotonCorrecto;
-    static int numpreguntas = 10;
+    int numpreguntas = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
