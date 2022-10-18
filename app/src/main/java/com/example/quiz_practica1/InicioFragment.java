@@ -18,7 +18,7 @@ import android.widget.Button;
  */
 public class InicioFragment extends Fragment {
 
-    int numpreguntas = 9;
+    int numeroPreguntas = 9;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,22 +74,28 @@ public class InicioFragment extends Fragment {
         final NavController navController = Navigation.findNavController(view);
 
         Button jugar = view.findViewById(R.id.jugarButton);
-        //Numero random de 0 a 1
+
         jugar.setOnClickListener(v -> {
             int tipoPregunta = (int) (Math.random() * 2);
 
             if(tipoPregunta == 0){
                 Bundle result = new Bundle();
-                result.putInt("numpreguntas", numpreguntas);
+                result.putInt("numeroPreguntas", numeroPreguntas);
                 getParentFragmentManager().setFragmentResult("variables", result);
                 navController.navigate(R.id.textPreguntasFragment);
             }
-            else{
+            else if(tipoPregunta == 1){
                 Bundle result = new Bundle();
-                result.putInt("numpreguntas", numpreguntas);
+                result.putInt("numeroPreguntas", numeroPreguntas);
                 getParentFragmentManager().setFragmentResult("variables", result);
                 navController.navigate(R.id.radioPreguntasFragment);
             }
+            /*else{
+                Bundle result = new Bundle();
+                result.putInt("numeroPreguntas", numeroPreguntas);
+                getParentFragmentManager().setFragmentResult("variables", result);
+                navController.navigate(R.id.imagenesFragment);
+            }*/
         });
     }
 }

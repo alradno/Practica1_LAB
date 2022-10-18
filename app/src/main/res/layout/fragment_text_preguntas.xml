@@ -9,50 +9,58 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
     <Button
         android:id="@+id/respuestaText1"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="210dp"
+        android:layout_height="70dp"
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="200dp"
-        android:text="@string/respuesta1Text" />
+        android:text="@string/respuesta1Text"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/respuestaText2"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="210dp"
+        android:layout_height="70dp"
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="300dp"
-        android:text="@string/respuesta2Text" />
+        android:text="@string/respuesta2Text"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/respuestaText3"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="210dp"
+        android:layout_height="70dp"
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="400dp"
-        android:text="@string/respuesta3Text" />
+        android:text="@string/respuesta3Text"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/respuestaText4"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
+        android:layout_width="210dp"
+        android:layout_height="70dp"
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="500dp"
-        android:text="@string/respuesta4Text" />
+        android:text="@string/respuesta4Text"
+        android:textSize="20sp" />
 
     <Button
-        android:id="@+id/AtrasButton1"
+        android:id="@+id/reiniciarButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/atrasTextFragment" />
+        android:text="@string/reiniciar"
+        android:layout_marginLeft="10sp"
+        android:layout_margin="10sp"/>
 
     <TextView
         android:id="@+id/PreguntaTextFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:layout_margin="100dp"
-        android:text="@string/preguntaText" />
+        android:layout_margin="80dp"
+        android:text="@string/preguntaText"
+        android:textSize="25sp"/>
 
 </FrameLayout>

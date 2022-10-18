@@ -19,15 +19,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TextPreguntasFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TextPreguntasFragment extends Fragment {
-    int numpreguntas;
+    int numeroPreguntas;
     int puntosPartida;
 
     TextView preguntaTextView;
@@ -36,70 +30,49 @@ public class TextPreguntasFragment extends Fragment {
     final ArrayList<Pregunta> preguntas = partida.anadirPreguntasYRespuestas();
     ArrayList<Pregunta> restoPreguntas = (ArrayList<Pregunta>) preguntas.clone();
     ArrayList<Pregunta> respuestasIncorrectas = new ArrayList<>();
+    ArrayList<Pregunta> restoPreguntasImagen = new ArrayList<>();
     Pregunta preguntaCorrecta = null;
     int numBotonCorrecto = 0;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public TextPreguntasFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TextPreguntasFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TextPreguntasFragment newInstance(String param1, String param2) {
-        TextPreguntasFragment fragment = new TextPreguntasFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
         getParentFragmentManager().setFragmentResultListener("variables", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
-                numpreguntas = bundle.getInt("numpreguntas");
-                //Log.i("numpreguntasListText", String.valueOf(numpreguntas));
+                numeroPreguntas = bundle.getInt("numeroPreguntas");
             }
         });
         getParentFragmentManager().setFragmentResultListener("variablesRadio", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
-                numpreguntas = bundle.getInt("numpreguntasRadio");
+                numeroPreguntas = bundle.getInt("numpreguntasRadio");
                 puntosPartida = bundle.getInt("puntosPartidaRadio");
                 //Obtiene restoPreguntas del bundle
                 restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntasRadio");
+                Log.i("NumpreguntasEntra", String.valueOf(numeroPreguntas));
 
-                Log.i("num1EntrEnPreguntasText", String.valueOf(numpreguntas));
-                Log.i("num1EntrEnPuntosText", String.valueOf(puntosPartida));
+            }
+        });
+        getParentFragmentManager().setFragmentResultListener("variablesImagen", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
+                numeroPreguntas = bundle.getInt("numeroPreguntas");
+                puntosPartida = bundle.getInt("puntosPartida");
+                //Obtiene restoPreguntas del bundle
+                restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntas");
+
             }
         });
 
-        //COSAS QUE HACER
-        /*Agregar realimentacion de fallo/acierto
-        * Agregar Seleccion en radioButton(ahora salta automaticamente)*/
+
 
     }
 
@@ -120,18 +93,6 @@ public class TextPreguntasFragment extends Fragment {
         Button respuesta2Button = view.findViewById(R.id.respuestaText2);
         Button respuesta3Button = view.findViewById(R.id.respuestaText3);
         Button respuesta4Button = view.findViewById(R.id.respuestaText4);
-
-        //Recuperar el numero de preguntas que se han contestado
-        //int numpreguntas = getArguments().getInt("numpreguntas");
-
-        //Boton Atras
-        /*Button atras = view.findViewById(R.id.AtrasButton1);
-        atras.setOnClickListener( v ->  {
-            navController.popBackStack();
-        });*/
-
-        //restoPreguntas = (ArrayList<Pregunta>) getIntent().getSerializableExtra("restoPreguntas");
-        //puntosPartida = getIntent().getIntExtra("puntosPartida", 0);
 
         //Texto donde se mostrará la pregunta
         preguntaTextView = view.findViewById(R.id.PreguntaTextFragment);
@@ -198,6 +159,16 @@ public class TextPreguntasFragment extends Fragment {
             }
             Log.i("Boton4", "Boton4 pulsado");
 
+        });
+
+        //Boton atrás que vuelva a la pantalla de inicio
+        Button atras = view.findViewById(R.id.reiniciarButton2);
+        atras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_textPreguntasFragment_to_inicioFragment);
+            }
         });
 
     }
@@ -277,28 +248,39 @@ public class TextPreguntasFragment extends Fragment {
                 respuesta3Button.setText(respuestasIncorrectas.get(2).getRespuesta());
                 break;
         }
-        numpreguntas--;
+        numeroPreguntas--;
     }
 
     public void tipoPregunta(View view, Button respuesta1Button, Button respuesta2Button, Button respuesta3Button, Button respuesta4Button){
 
-        if(numpreguntas > 0) {
+        if(numeroPreguntas > 0) {
             //Genera un numero random entre 0 y 1
             int tipoPregunta = (int) (Math.random() * 2);
             if (tipoPregunta == 0) {
                 jugarTextView(respuesta1Button, respuesta2Button, respuesta3Button, respuesta4Button);
-            } else {
+            }
+            else if(tipoPregunta == 1){
                 Bundle result = new Bundle();
-                numpreguntas--;
-                result.putInt("numpreguntasText", numpreguntas);
+                numeroPreguntas--;
+                result.putInt("numpreguntasText", numeroPreguntas);
                 result.putInt("puntosPartidaText", puntosPartida);
                 result.putSerializable("restoPreguntasText", restoPreguntas);
                 getParentFragmentManager().setFragmentResult("variablesText", result);
                 NavController navController = Navigation.findNavController(view);
                 navController.navigate(R.id.radioPreguntasFragment);
+                Log.i("NumpreguntasSale", String.valueOf(numeroPreguntas));
             }
-            Log.i("Num1SaleDepreguntasText", String.valueOf(numpreguntas));
-            Log.i("Num1pSaleDepreguntaText", String.valueOf(puntosPartida));
+            else{
+                Bundle result = new Bundle();
+                numeroPreguntas--;
+                result.putInt("numeroPreguntas", numeroPreguntas);
+                result.putInt("puntosPartida", puntosPartida);
+                result.putSerializable("restoPreguntasImagenText", restoPreguntasImagen);
+                result.putSerializable("restoPreguntas", restoPreguntas);
+                getParentFragmentManager().setFragmentResult("variablesImagenText", result);
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.imagenesFragment);
+            }
         }
         else{
             //Abre activity Resultado y le pasa puntosPartida

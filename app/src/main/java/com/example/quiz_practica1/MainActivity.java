@@ -19,51 +19,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i("Inicio de la app", "Inicio de la app");
+        //Muestra la flecha de atrás en la barra de navegación
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Log.i("Inicio de la app", "App iniciada");
 
-        /*Jugar partida = new Jugar();
-
-        ArrayList<Pregunta> restoPreguntas = partida.anadirPreguntasYRespuestas();
-
-
-        //Numero aleatorio de 0 o 1
-        //int estiloPregunta = (int) (Math.random() * 2);
-        int estiloPregunta = 0;
-
-
-        if (estiloPregunta == 0) {
-            //Pasar restopreguntas a TextViewPreguntas
-            Intent intent = new Intent(this, TextViewPreguntas.class);
-            numpreguntas = intent.getIntExtra("numpreguntas", 10);
-            intent.putExtra("restoPreguntas", restoPreguntas);
-            //Pasar puntosPartida a TextViewPreguntas
-            intent.putExtra("puntosPartida", puntosPartida);
-            Log.i("PuntosPartidaMain", String.valueOf(puntosPartida));
-            startActivity(intent);
-
-        } else if (estiloPregunta == 1) {
-            //Preguntas de tipo RadioButton
-            //Intent intent = new Intent(this, RadioButtonPreguntas.class);
-            //startActivity(intent);
-
-
-        Log.i("numpreguntas", String.valueOf(numpreguntas));
-        }
-        else{
-            //Pasar a la pantalla de resultados
-            Intent intent2 = new Intent(this, Resultado.class);
-            intent2.putExtra("puntosPartida", puntosPartida);
-            startActivity(intent2);
-        }
-
-        //Las preguntas de distintos tipos se tienen que intercalar
-        //Preguntas de tipo TextView
-        //Preguntas de tipo RadioButton
-        //Cada activity que devuelva resultado de correcto o fallo
-        //La puntuacion se va calculando en el main activity
-
-    */
+        int id = getResources().getIdentifier("sagrada_familia", "drawable", getPackageName());
     }
+
     public void onRadioButtonClicked(View view) {
         Log.i("radioButtonPulsado", "Pulsado");
     }

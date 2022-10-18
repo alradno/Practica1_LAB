@@ -13,87 +13,64 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RadioPreguntasFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RadioPreguntasFragment extends Fragment {
 
-    int numpreguntas;
+    int numeroPreguntas;
     int puntosPartida;
+    boolean correcto = false;
 
     TextView preguntaTextView;
     //AtomicInteger puntosPartida = new AtomicInteger();
     Jugar partida = new Jugar();
     final ArrayList<Pregunta> preguntas = partida.anadirPreguntasYRespuestas();
     ArrayList<Pregunta> restoPreguntas = (ArrayList<Pregunta>) preguntas.clone();
+    ArrayList<Pregunta> restoPreguntasImagen = new ArrayList<>();
     ArrayList<Pregunta> respuestasIncorrectas = new ArrayList<>();
     Pregunta preguntaCorrecta = null;
     int numBotonCorrecto = 0;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public RadioPreguntasFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RadioPreguntasFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RadioPreguntasFragment newInstance(String param1, String param2) {
-        RadioPreguntasFragment fragment = new RadioPreguntasFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
         getParentFragmentManager().setFragmentResultListener("variables", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
-                numpreguntas = bundle.getInt("numpreguntas");
-                //Log.i("numpreguntasListRadio", String.valueOf(numpreguntas));
+                numeroPreguntas = bundle.getInt("numeroPreguntas");
+
             }
         });
         getParentFragmentManager().setFragmentResultListener("variablesText", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
-                numpreguntas = bundle.getInt("numpreguntasText");
+                numeroPreguntas = bundle.getInt("numpreguntasText");
                 puntosPartida = bundle.getInt("puntosPartidaText");
                 restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntasText");
+                Log.i("NumpreguntasEntra", String.valueOf(numeroPreguntas));
 
-                Log.i("Num1EntraEnRadio", String.valueOf(numpreguntas));
-                Log.i("num1EntrEnPuntosRadio", String.valueOf(puntosPartida));
+            }
+        });
+        getParentFragmentManager().setFragmentResultListener("variablesImagen", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
+                numeroPreguntas = bundle.getInt("numeroPreguntas");
+                puntosPartida = bundle.getInt("puntosPartida");
+                //Obtiene restoPreguntas del bundle
+                restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntas");
+
             }
         });
 
@@ -114,78 +91,55 @@ public class RadioPreguntasFragment extends Fragment {
         RadioButton radioButton2 = view.findViewById(R.id.respuestaText2);
         RadioButton radioButton3 = view.findViewById(R.id.respuestaText3);
         RadioButton radioButton4 = view.findViewById(R.id.respuestaText4);
+        Button contestar = view.findViewById(R.id.buttonContestar);
 
-        /*//Boton Atras
-        Button atras = view.findViewById(R.id.AtrasButton1);
-        atras.setOnClickListener( v ->  {
-            navController.popBackStack();
-        });*/
+        //Boton atrás que vuelva a la pantalla de inicio
+        Button atras = view.findViewById(R.id.reiniciarButton);
+        atras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_radioPreguntasFragment_to_inicioFragment);
+            }
+        });
 
         //Texto donde se mostrará la pregunta
         preguntaTextView = view.findViewById(R.id.PreguntaRadio);
 
         jugarTextView(radioButton1, radioButton2, radioButton3, radioButton4);
 
-        radioButton1.setOnClickListener(v -> {
-            if (numBotonCorrecto == 1) {
-                puntosPartida+=3;
-                Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
-                tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
+        //Listener del boton contestar
+        contestar.setOnClickListener(v -> {
+            if (radioButton1.isChecked() || radioButton2.isChecked() || radioButton3.isChecked() || radioButton4.isChecked()) {
+                if (numBotonCorrecto == 1 && radioButton1.isChecked()) {
+                    puntosPartida+=3;
+                    Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
+                    tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
+                }
+                else if (numBotonCorrecto == 2 && radioButton2.isChecked()) {
+                    puntosPartida+=3;
+                    Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
+                    tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
+                }
+                else if (numBotonCorrecto == 3 && radioButton3.isChecked()) {
+                    puntosPartida+=3;
+                    Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
+                    tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
+                }
+                else if (numBotonCorrecto == 4 && radioButton4.isChecked()) {
+                    puntosPartida+=3;
+                    Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
+                    tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
+                }
+                else{
+                    puntosPartida-=2;
+                    Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
+                    tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
+                }
             }
             else{
-                puntosPartida-=2;
-                Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
-                tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
+                Toast.makeText(getContext(), "¡Debes seleccionar una respuesta!", Toast.LENGTH_SHORT).show();
             }
-            Log.i("Boton1", "Boton1 pulsado");
-
-
-        });
-        //Boton pulsado2
-        radioButton2.setOnClickListener(v -> {
-            if (numBotonCorrecto == 2) {
-                puntosPartida+=3;
-                Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
-                tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
-            }
-            else{
-                puntosPartida-=2;
-                Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
-                tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
-            }
-            Log.i("Boton2", "Boton2 pulsado");
-
-        });
-        //Boton pulsado3
-        radioButton3.setOnClickListener(v -> {
-            if (numBotonCorrecto == 3) {
-                puntosPartida+=3;
-                Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
-                tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
-            }
-            else{
-                puntosPartida-=2;
-                Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
-                tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
-            }
-            Log.i("Boton3", "Boton3 pulsado");
-
-
-        });
-        //Boton pulsado4
-        radioButton4.setOnClickListener(v -> {
-            if (numBotonCorrecto == 4) {
-                puntosPartida+=3;
-                Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
-                tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
-            }
-            else{
-                puntosPartida-=2;
-                Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
-                tipoPregunta(view, radioButton1, radioButton2, radioButton3, radioButton4);
-            }
-            Log.i("Boton4", "Boton4 pulsado");
-
         });
 
     }
@@ -265,27 +219,41 @@ public class RadioPreguntasFragment extends Fragment {
                 respuesta3Button.setText(respuestasIncorrectas.get(2).getRespuesta());
                 break;
         }
-        numpreguntas--;
+
+        numeroPreguntas--;
     }
 
     public void tipoPregunta(View view, RadioButton respuesta1Button, RadioButton respuesta2Button, RadioButton respuesta3Button, RadioButton respuesta4Button) {
-        if(numpreguntas > 0) {
+        if(numeroPreguntas > 0) {
             //Genera un numero random entre 0 y 1
             int tipoPregunta = (int) (Math.random() * 2);
+
             if (tipoPregunta == 0) {
                 jugarTextView(respuesta1Button, respuesta2Button, respuesta3Button, respuesta4Button);
-            } else {
+            }
+            else if(tipoPregunta == 1) {
                 Bundle result = new Bundle();
-                numpreguntas--;
-                result.putInt("numpreguntasRadio", numpreguntas);
+                numeroPreguntas--;
+                result.putInt("numpreguntasRadio", numeroPreguntas);
                 result.putInt("puntosPartidaRadio", puntosPartida);
                 result.putSerializable("restoPreguntasRadio", restoPreguntas);
                 getParentFragmentManager().setFragmentResult("variablesRadio", result);
                 NavController navController = Navigation.findNavController(view);
                 navController.navigate(R.id.textPreguntasFragment);
+                Log.i("NumpreguntasSale", String.valueOf(numeroPreguntas));
             }
-            Log.i("Num1SaleDeRadio", String.valueOf(numpreguntas));
-            Log.i("Num1pSaleDeRadio", String.valueOf(puntosPartida));
+            else{
+                Bundle result = new Bundle();
+                numeroPreguntas--;
+                result.putInt("numeroPreguntas", numeroPreguntas);
+                result.putInt("puntosPartida", puntosPartida);
+                result.putSerializable("restoPreguntasImagen", restoPreguntasImagen);
+                result.putSerializable("restoPreguntas", restoPreguntas);
+                getParentFragmentManager().setFragmentResult("variablesImagenRadio", result);
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.imagenesFragment);
+            }
+
         }
         else{
             //Abre activity Resultado y le pasa puntosPartida
@@ -294,4 +262,5 @@ public class RadioPreguntasFragment extends Fragment {
             startActivity(intent);
         }
     }
+
 }

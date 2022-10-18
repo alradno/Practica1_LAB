@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_inicioFragment_to_radioPreguntasFragment"
             app:destination="@id/radioPreguntasFragment" />
+        <action
+            android:id="@+id/action_inicioFragment_to_imagenesFragment"
+            app:destination="@id/imagenesFragment" />
     </fragment>
     <fragment
         android:id="@+id/textPreguntasFragment"
@@ -33,6 +36,18 @@
         tools:layout="@layout/fragment_radio_preguntas" >
         <action
             android:id="@+id/action_radioPreguntasFragment_to_inicioFragment"
+            app:destination="@id/inicioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imagenesFragment"
+        android:name="com.example.quiz_practica1.ImagenesFragment"
+        android:label="fragment_imagenes"
+        tools:layout="@layout/fragment_imagenes" >
+        <action
+            android:id="@+id/action_imagenesFragment_to_inicioFragment"
+            app:destination="@id/inicioFragment" />
+        <action
+            android:id="@+id/action_imagenesFragment_to_inicioFragment2"
             app:destination="@id/inicioFragment" />
     </fragment>
 

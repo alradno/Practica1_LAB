@@ -17,8 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/respuesta1Radio"
-            android:textSize="20dp"
-            android:onClick="onRadioButtonClicked"/>
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/respuestaText2"
@@ -26,8 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/respuesta2Radio"
-            android:textSize="20dp"
-            android:onClick="onRadioButtonClicked"/>
+            android:textSize="20sp"
+            />
 
         <RadioButton
             android:id="@+id/respuestaText3"
@@ -35,8 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/respuesta3Radio"
-            android:textSize="20dp"
-            android:onClick="onRadioButtonClicked"/>
+            android:textSize="20sp"
+            />
 
         <RadioButton
             android:id="@+id/respuestaText4"
@@ -44,8 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/respuesta4Radio"
-            android:textSize="20dp"
-            android:onClick="onRadioButtonClicked"/>
+            android:textSize="20sp"
+            />
     </RadioGroup>
 
     <TextView
@@ -55,7 +54,7 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="100dp"
         android:text="@string/preguntaRadio"
-        android:textSize="30dp"/>
+        android:textSize="30sp"/>
 
     <Button
         android:id="@+id/buttonContestar"
@@ -64,4 +63,12 @@
         android:layout_gravity="center_horizontal|top"
         android:layout_margin="600dp"
         android:text="@string/contestar" />
+
+    <Button
+        android:id="@+id/reiniciarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:layout_marginLeft="10sp"
+        android:text="Reiniciar" />
 </FrameLayout>

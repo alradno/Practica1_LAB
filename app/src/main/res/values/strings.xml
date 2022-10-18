@@ -34,4 +34,8 @@
     <string name="preguntaText">Pregunta</string>
     <string name="preguntaRadio">Pregunta</string>
     <string name="contestar">Contestar</string>
+    <string name="reiniciar">Reiniciar</string>
+    <string name="respuestaImagen1">Respuesta1</string>
+    <string name="imagen">TODO</string>
+    <string name="respuesta1Imagen">Respuesta1</string>
 </resources>
