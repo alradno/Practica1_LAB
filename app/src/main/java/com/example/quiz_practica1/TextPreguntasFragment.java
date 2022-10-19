@@ -44,35 +44,39 @@ public class TextPreguntasFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getParentFragmentManager().setFragmentResultListener("variables", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("Main_a_Text", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 numeroPreguntas = bundle.getInt("numeroPreguntas");
+                Log.i("__Entra_deMain_aText", String.valueOf(numeroPreguntas));
             }
         });
-        getParentFragmentManager().setFragmentResultListener("variablesRadio", this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
-                numeroPreguntas = bundle.getInt("numpreguntasRadio");
-                puntosPartida = bundle.getInt("puntosPartidaRadio");
-                //Obtiene restoPreguntas del bundle
-                restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntasRadio");
-                Log.i("NumpreguntasEntra", String.valueOf(numeroPreguntas));
-
-            }
-        });
-        getParentFragmentManager().setFragmentResultListener("variablesImagen", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("Radio_a_Text", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 numeroPreguntas = bundle.getInt("numeroPreguntas");
                 puntosPartida = bundle.getInt("puntosPartida");
                 //Obtiene restoPreguntas del bundle
                 restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntas");
+                restoPreguntasImagen = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntasImagen");
+                Log.i("__Entra_deRadio_aText", String.valueOf(numeroPreguntas));
+                //Log.i("Entra_deRadio_aTextR", String.valueOf(restoPreguntasImagen.size()));
 
             }
         });
+        getParentFragmentManager().setFragmentResultListener("Img_a_Text", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
+                numeroPreguntas = bundle.getInt("numeroPreguntas");
+                puntosPartida = bundle.getInt("puntosPartida");
+                //Obtiene restoPreguntas del bundle
+                restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntas");
+                restoPreguntasImagen = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntasImagen");
+                Log.i("__Entra_deImg_aText", String.valueOf(numeroPreguntas));
+                //Log.i("Entra_deImg_aTextR", String.valueOf(restoPreguntasImagen.size()));
 
-
+            }
+        });
 
     }
 
@@ -255,29 +259,42 @@ public class TextPreguntasFragment extends Fragment {
 
         if(numeroPreguntas > 0) {
             //Genera un numero random entre 0 y 1
-            int tipoPregunta = (int) (Math.random() * 2);
+            int tipoPregunta = (int) (Math.random() * 3);
+
             if (tipoPregunta == 0) {
                 jugarTextView(respuesta1Button, respuesta2Button, respuesta3Button, respuesta4Button);
             }
             else if(tipoPregunta == 1){
-                Bundle result = new Bundle();
-                numeroPreguntas--;
-                result.putInt("numpreguntasText", numeroPreguntas);
-                result.putInt("puntosPartidaText", puntosPartida);
-                result.putSerializable("restoPreguntasText", restoPreguntas);
-                getParentFragmentManager().setFragmentResult("variablesText", result);
-                NavController navController = Navigation.findNavController(view);
-                navController.navigate(R.id.radioPreguntasFragment);
-                Log.i("NumpreguntasSale", String.valueOf(numeroPreguntas));
-            }
-            else{
+
+                Log.i("__Sale_deText_aRadio", String.valueOf(numeroPreguntas));
+                //Log.i("Sale_deText_aRadioR", String.valueOf(restoPreguntasImagen.size()));
+                Log.i("__PE_desde_Text: ", "Radio");
+
                 Bundle result = new Bundle();
                 numeroPreguntas--;
                 result.putInt("numeroPreguntas", numeroPreguntas);
                 result.putInt("puntosPartida", puntosPartida);
-                result.putSerializable("restoPreguntasImagenText", restoPreguntasImagen);
                 result.putSerializable("restoPreguntas", restoPreguntas);
-                getParentFragmentManager().setFragmentResult("variablesImagenText", result);
+                result.putSerializable("restoPreguntasImagen", restoPreguntasImagen);
+                getParentFragmentManager().setFragmentResult("Text_a_Radio", result);
+
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.radioPreguntasFragment);
+            }
+            else{
+
+                Log.i("__Sale_deText_aImg", String.valueOf(numeroPreguntas));
+                //Log.i("Sale_deText_aImgR", String.valueOf(restoPreguntasImagen.size()));
+                Log.i("__PE_desde_Text: ", "Img");
+
+                Bundle result = new Bundle();
+                numeroPreguntas--;
+                result.putInt("numeroPreguntas", numeroPreguntas);
+                result.putInt("puntosPartida", puntosPartida);
+                result.putSerializable("restoPreguntasImagen", restoPreguntasImagen);
+                result.putSerializable("restoPreguntas", restoPreguntas);
+                getParentFragmentManager().setFragmentResult("Text_a_Img", result);
+
                 NavController navController = Navigation.findNavController(view);
                 navController.navigate(R.id.imagenesFragment);
             }

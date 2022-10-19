@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 public class Jugar {
 
@@ -156,6 +157,53 @@ public class Jugar {
         pregunta = new Pregunta("¿Cual es la capital de Pakistán?", "Islamabad", 65);
         preguntas.add(pregunta);
         return preguntas;
+    }
+
+    public ArrayList<Pregunta> anadirPreguntas2 () {
+        Pregunta pregunta;
+        ArrayList<Pregunta> preguntas = new ArrayList<Pregunta>();
+        pregunta = new Pregunta("¿Como se llama?", "Sagrada Familia", 0);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Torre Eiffel", 1);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Coliseo", 2);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Gran Muralla China", 3);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Machu Picchu", 4);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Taj Mahal", 5);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Cristo Redentor", 6);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Petra", 7);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Chichen Itza", 8);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Coloso de Rodas", 9);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Piramide de Keops", 10);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Mausoleo de Halicarnaso", 11);
+        preguntas.add(pregunta);
+        pregunta = new Pregunta("¿Como se llama?", "Templo de Artemisa", 12);
+        preguntas.add(pregunta);
+        return preguntas;
+    }
+
+    public ArrayList<String> nombreImagenes(ArrayList <Pregunta> preguntas) {
+        ArrayList<String> nombreImagenes = new ArrayList<>();
+        String nombreImagen;
+        for (Pregunta pregunta : preguntas) {
+            nombreImagen = pregunta.getRespuesta().replace(" ", "_");
+            nombreImagen = nombreImagen.toLowerCase();
+            nombreImagenes.add(nombreImagen);
+        }
+
+        for(String nombre : nombreImagenes) {
+            System.out.println(nombre);
+        }
+        return nombreImagenes;
     }
 
 }

@@ -46,30 +46,33 @@ public class RadioPreguntasFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getParentFragmentManager().setFragmentResultListener("variables", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("Main_a_Radio", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 numeroPreguntas = bundle.getInt("numeroPreguntas");
-
+                Log.i("__Entra_deMain_aRadio", String.valueOf(numeroPreguntas));
             }
         });
-        getParentFragmentManager().setFragmentResultListener("variablesText", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("Text_a_Radio", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
-                numeroPreguntas = bundle.getInt("numpreguntasText");
-                puntosPartida = bundle.getInt("puntosPartidaText");
-                restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntasText");
-                Log.i("NumpreguntasEntra", String.valueOf(numeroPreguntas));
+                numeroPreguntas = bundle.getInt("numeroPreguntas");
+                puntosPartida = bundle.getInt("puntosPartida");
+                restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntas");
+                Log.i("__Entra_deText_aRadio", String.valueOf(numeroPreguntas));
+                //Log.i("Entra_deText_aRadioR", String.valueOf(restoPreguntasImagen.size()));
 
             }
         });
-        getParentFragmentManager().setFragmentResultListener("variablesImagen", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("Img_a_Radio", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 numeroPreguntas = bundle.getInt("numeroPreguntas");
                 puntosPartida = bundle.getInt("puntosPartida");
                 //Obtiene restoPreguntas del bundle
                 restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntas");
+                Log.i("__Entra_deImg_aRadio", String.valueOf(numeroPreguntas));
+                //Log.i("Entra_deImg_aRadioR", String.valueOf(restoPreguntasImagen.size()));
 
             }
         });
@@ -226,30 +229,43 @@ public class RadioPreguntasFragment extends Fragment {
     public void tipoPregunta(View view, RadioButton respuesta1Button, RadioButton respuesta2Button, RadioButton respuesta3Button, RadioButton respuesta4Button) {
         if(numeroPreguntas > 0) {
             //Genera un numero random entre 0 y 1
-            int tipoPregunta = (int) (Math.random() * 2);
+            int tipoPregunta = (int) (Math.random() * 3);
+
 
             if (tipoPregunta == 0) {
                 jugarTextView(respuesta1Button, respuesta2Button, respuesta3Button, respuesta4Button);
             }
             else if(tipoPregunta == 1) {
+
+                Log.i("__Sale_deRadio_aText", String.valueOf(numeroPreguntas));
+                //Log.i("Sale_deRadio_aTextR", String.valueOf(restoPreguntasImagen.size()));
+                Log.i("__PE_desde_Radio: ", "Text");
+
                 Bundle result = new Bundle();
                 numeroPreguntas--;
-                result.putInt("numpreguntasRadio", numeroPreguntas);
-                result.putInt("puntosPartidaRadio", puntosPartida);
-                result.putSerializable("restoPreguntasRadio", restoPreguntas);
-                getParentFragmentManager().setFragmentResult("variablesRadio", result);
+                result.putInt("numeroPreguntas", numeroPreguntas);
+                result.putInt("puntosPartida", puntosPartida);
+                result.putSerializable("restoPreguntas", restoPreguntas);
+                result.putSerializable("restoPreguntasImagen", restoPreguntasImagen);
+                getParentFragmentManager().setFragmentResult("Radio_a_Text", result);
+
                 NavController navController = Navigation.findNavController(view);
                 navController.navigate(R.id.textPreguntasFragment);
-                Log.i("NumpreguntasSale", String.valueOf(numeroPreguntas));
             }
             else{
+
+                Log.i("__Sale_deRadio_aImg", String.valueOf(numeroPreguntas));
+                //Log.i("Sale_deRadio_aImgR", String.valueOf(restoPreguntasImagen.size()));
+                Log.i("__PE_desde_Radio: ", "Img");
+
                 Bundle result = new Bundle();
                 numeroPreguntas--;
                 result.putInt("numeroPreguntas", numeroPreguntas);
                 result.putInt("puntosPartida", puntosPartida);
                 result.putSerializable("restoPreguntasImagen", restoPreguntasImagen);
                 result.putSerializable("restoPreguntas", restoPreguntas);
-                getParentFragmentManager().setFragmentResult("variablesImagenRadio", result);
+                getParentFragmentManager().setFragmentResult("Radio_a_Img", result);
+
                 NavController navController = Navigation.findNavController(view);
                 navController.navigate(R.id.imagenesFragment);
             }
