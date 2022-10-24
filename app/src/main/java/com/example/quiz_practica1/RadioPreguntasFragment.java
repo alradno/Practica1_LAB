@@ -76,6 +76,18 @@ public class RadioPreguntasFragment extends Fragment {
 
             }
         });
+        getParentFragmentManager().setFragmentResultListener("Img2_a_Radio", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
+                numeroPreguntas = bundle.getInt("numeroPreguntas");
+                puntosPartida = bundle.getInt("puntosPartida");
+                //Obtiene restoPreguntas del bundle
+                restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntas");
+                Log.i("__Entra_deImg2_aRadio", String.valueOf(numeroPreguntas));
+                //Log.i("Entra_deImg_aRadioR", String.valueOf(restoPreguntasImagen.size()));
+
+            }
+        });
 
     }
 
@@ -97,8 +109,8 @@ public class RadioPreguntasFragment extends Fragment {
         Button contestar = view.findViewById(R.id.buttonContestar);
 
         //Boton atrás que vuelva a la pantalla de inicio
-        Button atras = view.findViewById(R.id.reiniciarButton);
-        atras.setOnClickListener(new View.OnClickListener() {
+        Button reiniciar = view.findViewById(R.id.reiniciarButton);
+        reiniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavController navController = Navigation.findNavController(v);
@@ -229,7 +241,7 @@ public class RadioPreguntasFragment extends Fragment {
     public void tipoPregunta(View view, RadioButton respuesta1Button, RadioButton respuesta2Button, RadioButton respuesta3Button, RadioButton respuesta4Button) {
         if(numeroPreguntas > 0) {
             //Genera un numero random entre 0 y 1
-            int tipoPregunta = (int) (Math.random() * 3);
+            int tipoPregunta = (int) (Math.random() * 4);
 
 
             if (tipoPregunta == 0) {
@@ -252,7 +264,7 @@ public class RadioPreguntasFragment extends Fragment {
                 NavController navController = Navigation.findNavController(view);
                 navController.navigate(R.id.textPreguntasFragment);
             }
-            else{
+            else if(tipoPregunta == 2) {
 
                 Log.i("__Sale_deRadio_aImg", String.valueOf(numeroPreguntas));
                 //Log.i("Sale_deRadio_aImgR", String.valueOf(restoPreguntasImagen.size()));
@@ -268,6 +280,22 @@ public class RadioPreguntasFragment extends Fragment {
 
                 NavController navController = Navigation.findNavController(view);
                 navController.navigate(R.id.imagenesFragment);
+            }
+            else{
+                Log.i("__Sale_deRadio_aVid", String.valueOf(numeroPreguntas));
+                //Log.i("Sale_deRadio_aVidR", String.valueOf(restoPreguntasImagen.size()));
+                Log.i("__PE_desde_Radio: ", "Vid");
+
+                Bundle result = new Bundle();
+                numeroPreguntas--;
+                result.putInt("numeroPreguntas", numeroPreguntas);
+                result.putInt("puntosPartida", puntosPartida);
+                result.putSerializable("restoPreguntasImagen", restoPreguntasImagen);
+                result.putSerializable("restoPreguntas", restoPreguntas);
+                getParentFragmentManager().setFragmentResult("Radio_a_Img2", result);
+
+                NavController navController = Navigation.findNavController(view);
+                navController.navigate(R.id.imagenes2Fragment);
             }
 
         }

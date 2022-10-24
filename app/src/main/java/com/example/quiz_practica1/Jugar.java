@@ -200,9 +200,6 @@ public class Jugar {
             nombreImagenes.add(nombreImagen);
         }
 
-        for(String nombre : nombreImagenes) {
-            System.out.println(nombre);
-        }
         return nombreImagenes;
     }
 

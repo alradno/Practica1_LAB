@@ -11,11 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link InicioFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class InicioFragment extends Fragment {
 
     int numeroPreguntas = 9;
@@ -45,7 +40,7 @@ public class InicioFragment extends Fragment {
         Button jugar = view.findViewById(R.id.jugarButton);
 
         jugar.setOnClickListener(v -> {
-            int tipoPregunta = (int) (Math.random() * 3);
+            int tipoPregunta = (int) (Math.random() * 4);
 
             if(tipoPregunta == 0){
                 Bundle result = new Bundle();
@@ -59,11 +54,17 @@ public class InicioFragment extends Fragment {
                 getParentFragmentManager().setFragmentResult("Main_a_Radio", result);
                 navController.navigate(R.id.radioPreguntasFragment);
             }
-            else{
+            else if(tipoPregunta == 2){
                 Bundle result = new Bundle();
                 result.putInt("numeroPreguntas", numeroPreguntas);
                 getParentFragmentManager().setFragmentResult("Main_a_Img", result);
                 navController.navigate(R.id.imagenesFragment);
+            }
+            else{
+                Bundle result = new Bundle();
+                result.putInt("numeroPreguntas", numeroPreguntas);
+                getParentFragmentManager().setFragmentResult("Main_a_Img2", result);
+                navController.navigate(R.id.imagenes2Fragment);
             }
         });
     }

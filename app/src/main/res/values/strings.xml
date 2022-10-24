@@ -38,4 +38,9 @@
     <string name="respuestaImagen1">Respuesta1</string>
     <string name="imagen">TODO</string>
     <string name="respuesta1Imagen">Respuesta1</string>
+    <string name="preguntaImg2">Pregunta</string>
+    <string name="respuestaimagen4">respuestaImagenN4</string>
+    <string name="respuestaimagen3">respuestaImagenN3</string>
+    <string name="respuestaimagen2">respuestaImagenN2</string>
+    <string name="respuestaimagen1">respuestaImagenN1</string>
 </resources>

@@ -21,42 +21,44 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ImagenesFragment extends Fragment {
+public class Imagenes2Fragment extends Fragment {
 
-    private ImageView imageView;
-    private int numeroPreguntas;
+    ImageView imagenRespuesta1;
+    ImageView imagenRespuesta2;
+    ImageView imagenRespuesta3;
+    ImageView imagenRespuesta4;
+    Button reiniciar;
+    TextView pregunta;
+
     Jugar partida = new Jugar();
+
     private ArrayList<Pregunta> preguntas = partida.anadirPreguntas2();
-    private int puntosPartida;
-    private ArrayList<Pregunta> restoPreguntasImagen =  (ArrayList<Pregunta>) preguntas.clone();
     private ArrayList<Pregunta> restoPreguntas;
-    private int idImagen;
-    private Pregunta preguntaElegida;
-    private TextView preguntaImagen;
+    private ArrayList<Pregunta> restoPreguntasImagen;
+    ArrayList<String> nombreImagenes = partida.nombreImagenes(preguntas);
+    private int numeroPreguntas;
+    private int puntosPartida;
+    private int numImagenCorrecta;
     private int numBotonCorrecto;
 
-    Button respuestaImagen1;
-    Button respuestaImagen2;
-    Button respuestaImagen3;
-    Button respuestaImagen4;
 
-
-    public ImagenesFragment() {
+    public Imagenes2Fragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getParentFragmentManager().setFragmentResultListener("Main_a_Img", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("Main_a_Img2", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 numeroPreguntas = bundle.getInt("numeroPreguntas");
                 Log.i("__Entra_deMain_aImg", String.valueOf(numeroPreguntas));
             }
         });
-        getParentFragmentManager().setFragmentResultListener("Text_a_Img", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("Text_a_Img2", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 numeroPreguntas = bundle.getInt("numeroPreguntas");
@@ -71,7 +73,7 @@ public class ImagenesFragment extends Fragment {
                 //Log.i("Entra_deText_aImgR", String.valueOf(restoPreguntasImagen.size()));
             }
         });
-        getParentFragmentManager().setFragmentResultListener("Radio_a_Img", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("Radio_a_Img2", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 numeroPreguntas = bundle.getInt("numeroPreguntas");
@@ -88,7 +90,7 @@ public class ImagenesFragment extends Fragment {
 
             }
         });
-        getParentFragmentManager().setFragmentResultListener("Img2_a_Img", this, new FragmentResultListener() {
+        getParentFragmentManager().setFragmentResultListener("Img_a_Img2", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String key, @NonNull Bundle bundle) {
                 numeroPreguntas = bundle.getInt("numeroPreguntas");
@@ -100,7 +102,7 @@ public class ImagenesFragment extends Fragment {
                 if((ArrayList<Pregunta>) bundle.getSerializable("restoPreguntas") != null){
                     restoPreguntas = (ArrayList<Pregunta>) bundle.getSerializable("restoPreguntas");
                 }
-                Log.i("__Entra_deImg2_aImg", String.valueOf(numeroPreguntas));
+                Log.i("__Entra_deRadio_aImg", String.valueOf(numeroPreguntas));
                 //Log.i("__Entra_deRadio_aImgR", String.valueOf(restoPreguntasImagen.size()));
 
             }
@@ -111,91 +113,91 @@ public class ImagenesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_imagenes, container, false);
+        return inflater.inflate(R.layout.fragment_imagenes2, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        imageView = view.findViewById(R.id.imageView);
-        preguntaImagen = view.findViewById(R.id.preguntaImagen);
-
-        respuestaImagen1 = view.findViewById(R.id.respuestaImagen1);
-        respuestaImagen2 = view.findViewById(R.id.respuestaImagen2);
-        respuestaImagen3 = view.findViewById(R.id.respuestaImagen3);
-        respuestaImagen4 = view.findViewById(R.id.respuestaImagen4);
-
+        imagenRespuesta1 = view.findViewById(R.id.imagenRespuesta1);
+        imagenRespuesta2 = view.findViewById(R.id.imagenRespuesta2);
+        imagenRespuesta3 = view.findViewById(R.id.imagenRespuesta3);
+        imagenRespuesta4 = view.findViewById(R.id.imagenRespuesta4);
+        reiniciar = view.findViewById(R.id.reiniciarButton4);
+        pregunta = view.findViewById(R.id.preguntaImagenes2);
 
         jugar2();
 
-        respuestaImagen1.setOnClickListener(v -> {
-            if (numBotonCorrecto == 1) {
-                puntosPartida+=3;
-                Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                puntosPartida-=2;
-                Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
-            }
-            Log.i("Boton1", "Boton1 pulsado");
-            tipoPregunta(view);
-
-
-        });
-        //Boton pulsado2
-        respuestaImagen2.setOnClickListener(v -> {
-            if (numBotonCorrecto == 2) {
-                puntosPartida+=3;
-                Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                puntosPartida-=2;
-                Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
-            }
-            Log.i("Boton2", "Boton2 pulsado");
-            tipoPregunta(view);
-
-        });
-        //Boton pulsado3
-        respuestaImagen3.setOnClickListener(v -> {
-            if (numBotonCorrecto == 3) {
-                puntosPartida+=3;
-                Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
-                tipoPregunta(view);
-            }
-            else{
-                puntosPartida-=2;
-                Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
-                tipoPregunta(view);
-            }
-            Log.i("Boton3", "Boton3 pulsado");
-            tipoPregunta(view);
-
-
-        });
-        //Boton pulsado4
-        respuestaImagen4.setOnClickListener(v -> {
-            if (numBotonCorrecto == 4) {
-                puntosPartida+=3;
-                Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
-            }
-            else{
-                puntosPartida-=2;
-                Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
-            }
-            Log.i("Boton4", "Boton4 pulsado");
-            tipoPregunta(view);
-
-        });
-
         //Boton atrás que vuelva a la pantalla de inicio
-        Button reiniciar = view.findViewById(R.id.reiniciarButton3);
+        Button reiniciar = view.findViewById(R.id.reiniciarButton4);
         reiniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_imagenesFragment_to_inicioFragment);
+                navController.navigate(R.id.action_imagenes2Fragment_to_inicioFragment);
+            }
+        });
+
+        //Listener de las imagenes
+        imagenRespuesta1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (numBotonCorrecto == 1) {
+                    puntosPartida+=3;
+                    Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    puntosPartida-=2;
+                    Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
+                }
+                Log.i("Boton1", "Boton1 pulsado");
+                tipoPregunta(view);
+            }
+        });
+        imagenRespuesta2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (numBotonCorrecto == 2) {
+                    puntosPartida+=3;
+                    Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    puntosPartida-=2;
+                    Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
+                }
+                Log.i("Boton2", "Boton2 pulsado");
+                tipoPregunta(view);
+            }
+        });
+        imagenRespuesta3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (numBotonCorrecto == 3) {
+                    puntosPartida+=3;
+                    Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    puntosPartida-=2;
+                    Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
+                }
+                Log.i("Boton3", "Boton3 pulsado");
+                tipoPregunta(view);
+            }
+        });
+        imagenRespuesta4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (numBotonCorrecto == 4) {
+                    puntosPartida+=3;
+                    Toast.makeText(getContext(), "¡Correcto!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    puntosPartida-=2;
+                    Toast.makeText(getContext(), "¡Has Fallado!", Toast.LENGTH_SHORT).show();
+                }
+                Log.i("Boton4", "Boton4 pulsado");
+                tipoPregunta(view);
             }
         });
 
@@ -208,91 +210,107 @@ public class ImagenesFragment extends Fragment {
         Pregunta preguntaElegida = preguntas.get(numAleatorio);
         System.out.println("Pregunta elegida: " + preguntaElegida.getRespuesta());
         //Coloca el texto de la pregunta en el TextView
-        preguntaImagen.setText(preguntaElegida.getPregunta());
+        pregunta.setText(preguntaElegida.getRespuesta());
         //Elige un boton correcto y coloca la respuesta correcta en el boton
-        elegirBotonCorrecto(preguntaElegida);
-        System.out.println("Boton correcto: " + numBotonCorrecto);
+        System.out.println("Boton correcto: " + numImagenCorrecta);
         //Extrae los nombres de las imagenes y los guarda en un array
-        ArrayList<String> nombreImagenes = partida.nombreImagenes(preguntas);
         //Coloca la imagen en el ImageView
         int idImagen = getResources().getIdentifier(nombreImagenes.get(numAleatorio), "drawable", getActivity().getPackageName());
+        //nombreImagenes.remove(numAleatorio);
+        //preguntas.remove(numAleatorio);
         System.out.println("Imagen elegida: " + nombreImagenes.get(numAleatorio));
-        imageView.setImageResource(idImagen);
+        elegirBotonCorrecto(idImagen);
         //Elige los botones incorrectos
-        elegirBotonesIncorrectos(numBotonCorrecto, preguntaElegida);
+        elegirBotonesIncorrectos(numBotonCorrecto);
         numeroPreguntas--;
     }
 
-    public void elegirBotonCorrecto(Pregunta preguntaElegida) {
+    public void elegirBotonCorrecto(int idImagen) {
 
-        int posicionBotonCorrecto = (int) (Math.random() * 4);
-        switch (posicionBotonCorrecto) {
+        int posicionImagenCorrecto = (int) (Math.random() * 4);
+
+        switch (posicionImagenCorrecto) {
             case 0:
-                respuestaImagen1.setText(preguntaElegida.getRespuesta());
+                imagenRespuesta1.setImageResource(idImagen);
                 numBotonCorrecto = 1;
                 Log.i("Boton Correcto", "Boton 1");
                 break;
             case 1:
-                respuestaImagen2.setText(preguntaElegida.getRespuesta());
+                imagenRespuesta2.setImageResource(idImagen);
                 numBotonCorrecto = 2;
                 Log.i("Boton Correcto", "Boton 2");
                 break;
             case 2:
-                respuestaImagen3.setText(preguntaElegida.getRespuesta());
+                imagenRespuesta3.setImageResource(idImagen);
                 numBotonCorrecto = 3;
                 Log.i("Boton Correcto", "Boton 3");
                 break;
             case 3:
-                respuestaImagen4.setText(preguntaElegida.getRespuesta());
+                imagenRespuesta4.setImageResource(idImagen);
                 numBotonCorrecto = 4;
                 Log.i("Boton Correcto", "Boton 4");
                 break;
         }
     }
 
-    public void elegirBotonesIncorrectos(int numBotonCorrecto, Pregunta preguntaElegida){
-
-        ArrayList<Pregunta> respuestasIncorrectas = (ArrayList<Pregunta>) preguntas.clone();
-        respuestasIncorrectas.remove(preguntaElegida);
+    public void elegirBotonesIncorrectos(int numBotonCorrecto){
 
         //Barajar el array
-        Collections.shuffle(respuestasIncorrectas);
+        Collections.shuffle(nombreImagenes);
+        int idImagen;
 
         if(numBotonCorrecto == 1){
-            respuestaImagen2.setText(respuestasIncorrectas.get(0).getRespuesta());
-            respuestaImagen3.setText(respuestasIncorrectas.get(1).getRespuesta());
-            respuestaImagen4.setText(respuestasIncorrectas.get(2).getRespuesta());
+            idImagen = getResources().getIdentifier(nombreImagenes.get(0), "drawable", getActivity().getPackageName());
+            imagenRespuesta2.setImageResource(idImagen);
+
+            idImagen = getResources().getIdentifier(nombreImagenes.get(1), "drawable", getActivity().getPackageName());
+            imagenRespuesta3.setImageResource(idImagen);
+
+            idImagen = getResources().getIdentifier(nombreImagenes.get(2), "drawable", getActivity().getPackageName());
+            imagenRespuesta4.setImageResource(idImagen);
         }
         else if(numBotonCorrecto == 2){
-            respuestaImagen1.setText(respuestasIncorrectas.get(0).getRespuesta());
-            respuestaImagen3.setText(respuestasIncorrectas.get(1).getRespuesta());
-            respuestaImagen4.setText(respuestasIncorrectas.get(2).getRespuesta());
+            idImagen = getResources().getIdentifier(nombreImagenes.get(0), "drawable", getActivity().getPackageName());
+            imagenRespuesta1.setImageResource(idImagen);
+
+            idImagen = getResources().getIdentifier(nombreImagenes.get(1), "drawable", getActivity().getPackageName());
+            imagenRespuesta3.setImageResource(idImagen);
+
+            idImagen = getResources().getIdentifier(nombreImagenes.get(2), "drawable", getActivity().getPackageName());
+            imagenRespuesta4.setImageResource(idImagen);
         }
         else if(numBotonCorrecto == 3){
-            respuestaImagen1.setText(respuestasIncorrectas.get(0).getRespuesta());
-            respuestaImagen2.setText(respuestasIncorrectas.get(1).getRespuesta());
-            respuestaImagen4.setText(respuestasIncorrectas.get(2).getRespuesta());
+            idImagen = getResources().getIdentifier(nombreImagenes.get(0), "drawable", getActivity().getPackageName());
+            imagenRespuesta1.setImageResource(idImagen);
+
+            idImagen = getResources().getIdentifier(nombreImagenes.get(1), "drawable", getActivity().getPackageName());
+            imagenRespuesta2.setImageResource(idImagen);
+
+            idImagen = getResources().getIdentifier(nombreImagenes.get(2), "drawable", getActivity().getPackageName());
+            imagenRespuesta4.setImageResource(idImagen);
         }
-        else{
-            respuestaImagen1.setText(respuestasIncorrectas.get(0).getRespuesta());
-            respuestaImagen2.setText(respuestasIncorrectas.get(1).getRespuesta());
-            respuestaImagen3.setText(respuestasIncorrectas.get(2).getRespuesta());
+        else if(numBotonCorrecto == 4){
+            idImagen = getResources().getIdentifier(nombreImagenes.get(0), "drawable", getActivity().getPackageName());
+            imagenRespuesta1.setImageResource(idImagen);
+
+            idImagen = getResources().getIdentifier(nombreImagenes.get(1), "drawable", getActivity().getPackageName());
+            imagenRespuesta2.setImageResource(idImagen);
+
+            idImagen = getResources().getIdentifier(nombreImagenes.get(2), "drawable", getActivity().getPackageName());
+            imagenRespuesta3.setImageResource(idImagen);
         }
     }
 
     public void tipoPregunta(View view){
 
         if(numeroPreguntas > 0) {
-            //Genera un numero random entre 0 y 1
+            //Genera un numero random entre 0 y 3
             int tipoPregunta = (int) (Math.random() * 4);
+
             if (tipoPregunta == 0) {
                 jugar2();
             }
             else if(tipoPregunta == 1){
-
-                Log.i("__Sale_deImg_aText", String.valueOf(numeroPreguntas));
-                //Log.i("Sale_deImg_aTextR", String.valueOf(restoPreguntasImagen.size()));
-                Log.i("__PE_desde_Img: ", "Text");
 
                 Bundle result = new Bundle();
                 numeroPreguntas--;
@@ -300,39 +318,36 @@ public class ImagenesFragment extends Fragment {
                 result.putInt("puntosPartida", puntosPartida);
                 result.putSerializable("restoPreguntas", restoPreguntas);
                 result.putSerializable("restoPreguntasImagen", restoPreguntasImagen);
-                getParentFragmentManager().setFragmentResult("Img_a_Text", result);
+                getParentFragmentManager().setFragmentResult("Img2_a_Text", result);
 
                 NavController navController = Navigation.findNavController(view);
                 navController.navigate(R.id.textPreguntasFragment);
             }
             else if (tipoPregunta == 2){
 
-                Log.i("__Sale_deImg_aRadio", String.valueOf(numeroPreguntas));
-                //Log.i("Sale_deImg_aRadioR", String.valueOf(restoPreguntasImagen.size()));
-                Log.i("__PE_desde_Img: ", "Radio");
-
                 Bundle result = new Bundle();
                 numeroPreguntas--;
                 result.putInt("numeroPreguntas", numeroPreguntas);
                 result.putInt("puntosPartida", puntosPartida);
                 result.putSerializable("restoPreguntasImagen", restoPreguntasImagen);
                 result.putSerializable("restoPreguntas", restoPreguntas);
-                getParentFragmentManager().setFragmentResult("Img_a_Radio", result);
+                getParentFragmentManager().setFragmentResult("Img2_a_Radio", result);
 
                 NavController navController = Navigation.findNavController(view);
                 navController.navigate(R.id.radioPreguntasFragment);
             }
-            else{
+            else if (tipoPregunta == 3){
+
                 Bundle result = new Bundle();
                 numeroPreguntas--;
                 result.putInt("numeroPreguntas", numeroPreguntas);
                 result.putInt("puntosPartida", puntosPartida);
                 result.putSerializable("restoPreguntasImagen", restoPreguntasImagen);
                 result.putSerializable("restoPreguntas", restoPreguntas);
-                getParentFragmentManager().setFragmentResult("Img_a_Img2", result);
+                getParentFragmentManager().setFragmentResult("Img2_a_Img", result);
 
                 NavController navController = Navigation.findNavController(view);
-                navController.navigate(R.id.imagenes2Fragment);
+                navController.navigate(R.id.imagenesFragment);
             }
         }
         else{
@@ -342,5 +357,4 @@ public class ImagenesFragment extends Fragment {
             startActivity(intent);
         }
     }
-
 }
