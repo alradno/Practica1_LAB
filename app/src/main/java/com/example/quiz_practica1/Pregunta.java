@@ -1,8 +1,9 @@
 package com.example.quiz_practica1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Pregunta {
+public class Pregunta implements Serializable {
     private String pregunta;
     private String respuesta;
     int id;

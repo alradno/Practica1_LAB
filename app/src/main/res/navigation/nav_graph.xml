@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/inicioFragment">
+
+    <fragment
+        android:id="@+id/inicioFragment"
+        android:name="com.example.quiz_practica1.InicioFragment"
+        android:label="fragment_inicio"
+        tools:layout="@layout/fragment_inicio" >
+        <action
+            android:id="@+id/action_inicioFragment_to_textPreguntasFragment"
+            app:destination="@id/textPreguntasFragment" />
+        <action
+            android:id="@+id/action_inicioFragment_to_radioPreguntasFragment"
+            app:destination="@id/radioPreguntasFragment" />
+        <action
+            android:id="@+id/action_inicioFragment_to_imagenesFragment"
+            app:destination="@id/imagenesFragment" />
+        <action
+            android:id="@+id/action_inicioFragment_to_imagenes2Fragment"
+            app:destination="@id/imagenes2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/textPreguntasFragment"
+        android:name="com.example.quiz_practica1.TextPreguntasFragment"
+        android:label="fragment_text_preguntas"
+        tools:layout="@layout/fragment_text_preguntas" >
+        <action
+            android:id="@+id/action_textPreguntasFragment_to_inicioFragment"
+            app:destination="@id/inicioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/radioPreguntasFragment"
+        android:name="com.example.quiz_practica1.RadioPreguntasFragment"
+        android:label="fragment_radio_preguntas"
+        tools:layout="@layout/fragment_radio_preguntas" >
+        <action
+            android:id="@+id/action_radioPreguntasFragment_to_inicioFragment"
+            app:destination="@id/inicioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imagenesFragment"
+        android:name="com.example.quiz_practica1.ImagenesFragment"
+        android:label="fragment_imagenes"
+        tools:layout="@layout/fragment_imagenes" >
+        <action
+            android:id="@+id/action_imagenesFragment_to_inicioFragment"
+            app:destination="@id/inicioFragment" />
+        <action
+            android:id="@+id/action_imagenesFragment_to_inicioFragment2"
+            app:destination="@id/inicioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/imagenes2Fragment"
+        android:name="com.example.quiz_practica1.Imagenes2Fragment"
+        android:label="fragment_imagenes2"
+        tools:layout="@layout/fragment_imagenes2" >
+        <action
+            android:id="@+id/action_imagenes2Fragment_to_inicioFragment"
+            app:destination="@id/inicioFragment" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RadioPreguntasFragment">
+
+    <RadioGroup
+        android:layout_width="167dp"
+        android:layout_height="274dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="250dp">
+
+        <RadioButton
+            android:id="@+id/respuestaText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/respuesta1Radio"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/respuestaText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/respuesta2Radio"
+            android:textSize="20sp"
+            />
+
+        <RadioButton
+            android:id="@+id/respuestaText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/respuesta3Radio"
+            android:textSize="20sp"
+            />
+
+        <RadioButton
+            android:id="@+id/respuestaText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/respuesta4Radio"
+            android:textSize="20sp"
+            />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/PreguntaRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="100dp"
+        android:text="@string/preguntaRadio"
+        android:textSize="30sp"/>
+
+    <Button
+        android:id="@+id/buttonContestar"
+        android:layout_width="130dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="600dp"
+        android:text="@string/contestar" />
+
+    <Button
+        android:id="@+id/reiniciarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:layout_marginLeft="10sp"
+        android:text="Reiniciar" />
+</FrameLayout>

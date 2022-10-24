@@ -10,4 +10,37 @@
     <string name="puntos">Puntos:</string>
     <string name="_0">0</string>
     <string name="salir">Salir</string>
+    <string name="volver">Volver</string>
+    <string name="salirPuntuacion">Salir</string>
+    <string name="preguntaTextRadio">Pregunta</string>
+    <string name="salirButtonTextView">Salir</string>
+    <string name="preguntaTextView">Pregunta</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="jugarButton">Jugar</string>
+    <string name="radiobutton">RadioButton</string>
+    <string name="radiobuttonFragment2">RadioButton</string>
+    <string name="radiobuttonFragment3">RadioButton</string>
+    <string name="radioFragment1">RadioButton</string>
+    <string name="respuesta1Radio">Respuesta1</string>
+    <string name="respuesta2Radio">Respuesta2</string>
+    <string name="respuesta3Radio">Respuesta3</string>
+    <string name="respuesta4Radio">Respuesta4</string>
+    <string name="respuesta1Text">Respuesta1</string>
+    <string name="respuesta2Text">Respuesta2</string>
+    <string name="respuesta3Text">Respuesta3</string>
+    <string name="respuesta4Text">Respuesta4</string>
+    <string name="atrasTextFragment">Atras</string>
+    <string name="preguntaText">Pregunta</string>
+    <string name="preguntaRadio">Pregunta</string>
+    <string name="contestar">Contestar</string>
+    <string name="reiniciar">Reiniciar</string>
+    <string name="respuestaImagen1">Respuesta1</string>
+    <string name="imagen">TODO</string>
+    <string name="respuesta1Imagen">Respuesta1</string>
+    <string name="preguntaImg2">Pregunta</string>
+    <string name="respuestaimagen4">respuestaImagenN4</string>
+    <string name="respuestaimagen3">respuestaImagenN3</string>
+    <string name="respuestaimagen2">respuestaImagenN2</string>
+    <string name="respuestaimagen1">respuestaImagenN1</string>
 </resources>
